@@ -14,10 +14,8 @@ const BannerLoader = () => {
                 backgroundColor: 'background.paper',
             }}
         >
-            {/* Banner Image Placeholder */}
             <Skeleton variant="rectangular" width="100%" height="100%" />
 
-            {/* Overlay Content Placeholder */}
             <Box
                 sx={{
                     position: 'absolute',
@@ -27,9 +25,7 @@ const BannerLoader = () => {
                     color: 'text.primary',
                 }}
             >
-                {/* Title Placeholder */}
                 <Skeleton variant="text" width="40%" height={40} sx={{ mb: 1 }} />
-                {/* Subtitle Placeholder */}
                 <Skeleton variant="text" width="60%" height={20} />
             </Box>
         </Box>
