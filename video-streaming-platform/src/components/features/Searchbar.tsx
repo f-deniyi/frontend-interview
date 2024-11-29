@@ -15,9 +15,9 @@ const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
     }, [searchTerm]); 
 
     useEffect(() => {
-        if (debouncedTerm) {
-            onSearch(debouncedTerm); 
-        }
+        // console.log('------>search',debouncedTerm)
+       
+        onSearch(debouncedTerm); 
     }, [debouncedTerm, onSearch]); 
 
     return (

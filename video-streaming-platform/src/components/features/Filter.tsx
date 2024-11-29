@@ -1,70 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { IGenre } from '../../types';
 
-interface Filters {
-    [key: string]: string[]; 
-    categories: string[];
-    uploaders: string[];
+interface FilterBarProps {
+    onFilter: (genreId: number | null) => void; // null for "All",
+    genres: IGenre[]
 }
 
-const FilterBar = ({ onFilter }: { onFilter: (filters: Filters) => void }) => {
-    const [filters, setFilters] = useState<Filters>({
-        categories: [],
-        uploaders: [],
-    });
+const FilterBar: React.FC<FilterBarProps> = ({ onFilter, genres }) => {
+    const [activeGenre, setActiveGenre] = useState<number | null>(null);
 
-    const handleFilterChange = (filterType: keyof Filters, value: string) => {
-        setFilters((prev) => ({
-            ...prev,
-            [filterType]: prev[filterType].includes(value)
-                ? prev[filterType].filter((v) => v !== value) 
-                : [...prev[filterType], value], 
-        }));
-    };
-
-    useEffect(() => {
-        onFilter(filters);
-    }, [filters, onFilter]);
 
     return (
-        <div className="flex gap-4">
-            <div>
-                <label>Categories:</label>
-                <div>
-                    <input
-                        type="checkbox"
-                        value="action"
-                        onChange={() => handleFilterChange('categories', 'action')}
-                    />
-                    Action
-                </div>
-                <div>
-                    <input
-                        type="checkbox"
-                        value="drama"
-                        onChange={() => handleFilterChange('categories', 'drama')}
-                    />
-                    Drama
-                </div>
-            </div>
-            <div>
-                <label>Uploaders:</label>
-                <div>
-                    <input
-                        type="checkbox"
-                        value="uploader1"
-                        onChange={() => handleFilterChange('uploaders', 'uploader1')}
-                    />
-                    Uploader 1
-                </div>
-                <div>
-                    <input
-                        type="checkbox"
-                        value="uploader2"
-                        onChange={() => handleFilterChange('uploaders', 'uploader2')}
-                    />
-                    Uploader 2
-                </div>
-            </div>
+        <div className="flex gap-3 items-center overflow-x-auto py-2">
+            <button
+                onClick={() => {
+                    setActiveGenre(null);
+                    onFilter(null);
+                }}
+                className={`transition-colors px-6 py-1 rounded-full ${activeGenre === null
+                    ? 'bg-gradient-to-r from-[#5F42E2] to-[#9B42C0] text-white'
+                    : 'bg-white dark:bg-[#0E0C0A] text-gray-800 dark:text-gray-200'
+                    }`}
+            >
+                All
+            </button>
+            {genres.slice(0, 3).map((genre) => (
+                <button
+                    key={genre.id}
+                    onClick={() => {
+                        setActiveGenre(genre.id);
+                        onFilter(genre.id);
+                    }}
+                    className={`transition-colors px-4 py-1 rounded-full ${activeGenre === genre.id
+                        ? 'bg-gradient-to-r from-[#5F42E2] to-[#9B42C0] text-white'
+                        : 'bg-white dark:bg-[#0E0C0A] text-gray-800 dark:text-gray-200'
+                        }`}
+                >
+                    {genre.name}
+                </button>
+            ))}
         </div>
     );
 };
