@@ -4,15 +4,15 @@ import Navbar from './Navbar';
 
 const AppLayout = ({ children, handleSearch }: { children: ReactNode, handleSearch: (query: string) => void }) => {
     return (
-        <div className="bg-white dark:bg-gray-800 min-h-screen">
+        <div className="transition-colors bg-gray-300 dark:bg-[#181818ec] min-h-screen">
             <Navbar onSearch={handleSearch} />
-            <div className='flex gap-3'>
-                <div className='col-span-1 w-[5%]'>
+            <div className='flex gap-3 mt-20 '>
+                <div className='w-[5%] mt-4'>
                     <Sidebar />
 
                 </div>
-                <div className='col-span-11 w-[95%]'>
-                    <main className="mt-20 p-6">{children}</main>
+                <div className='w-[95%]  '>
+                    <main className="">{children}</main>
 
                 </div>
 
