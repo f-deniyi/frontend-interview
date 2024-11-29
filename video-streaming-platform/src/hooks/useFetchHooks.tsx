@@ -28,17 +28,7 @@ const useFetchMovies = (query: string = '', page: number = 1) => {
 
                 if (response.status === 200) {
                     const moviesWithMockData = response.data.results.map((movie: any) => ({
-                        id: movie.id,
-                        title: movie.title || movie.name || "Unknown Title",
-                        release_date: movie.release_date || "Unknown Date",
-                        overview: movie.overview || "No description available.",
-                        poster_path: movie.poster_path
-                            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                            : "https://via.placeholder.com/500", 
-                        popularity: movie.popularity || 0,
-                        backdrop_path: movie.backdrop_path,
-                        vote_average: movie.vote_average || 0,
-                        vote_count: movie.vote_count || 0,
+                        ...movie,
                         views: Math.floor(Math.random() * 10000),
                         likes: Math.floor(Math.random() * 5000),
                         uploadDate: new Date(
@@ -50,7 +40,6 @@ const useFetchMovies = (query: string = '', page: number = 1) => {
                         uploader: ['User1', 'User2', 'User3', 'User4'][
                             Math.floor(Math.random() * 4)
                         ],
-                        genre_ids: movie.genre_ids
                     }));
                     setData(moviesWithMockData);
                 } else {
@@ -65,7 +54,7 @@ const useFetchMovies = (query: string = '', page: number = 1) => {
         };
 
         fetchMovies();
-    }, [query,page]);
+    }, [query, page]);
 
     return { data, isLoading, error };
 };

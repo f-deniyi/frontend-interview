@@ -11,7 +11,7 @@ interface TrailerData {
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-const useFetchTrailer = (movieId: number) => {
+const useFetchTrailer = (movieId: number | null) => {
     const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
     const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);

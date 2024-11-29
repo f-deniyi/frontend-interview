@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react';
+import { IGenre } from '../types';
+
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-export interface Genre {
-    id: number;
-    name: string;
-}
-
 const useFetchGenre = () => {
-    const [genres, setGenres] = useState<Genre[]>([]);
+    const [genres, setGenres] = useState<IGenre[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
